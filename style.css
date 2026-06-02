@@ -1,0 +1,906 @@
+/* ==========================================================================
+   1. VARIABLES & GLOBAL RESETS (THIẾT LẬP HỆ THỐNG & ĐỊNH HƯỚNG MÀU SẮC)
+   ========================================================================== */
+:root {
+    /* Bảng màu tối giản sang trọng phong cách Haute Couture */
+    --bg-luxury-alabaster: #FBF9F6;       /* Nền trắng sứ mịn */
+    --text-royal-espresso: #1A0F0A;       /* Nâu đen hạt Espresso đậm */
+    --text-taupe-muted: #7D6E65;          /* Nâu xám tro thanh lịch */
+    --accent-champagne-gold: #C5A880;     /* Vàng Champagne Thượng hạng */
+    --border-delicate: #EAE3DA;           /* Đường viền mờ tinh tế */
+    
+    /* Hệ thống Font chữ tạp chí nghệ thuật */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-luxury-alabaster);
+    color: var(--text-royal-espresso);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. LUXURY AMBIENT BACKGROUND (HỆ THỐNG NỀN NGHỆ THUẬT CHUYỂN ĐỘNG CHẬM)
+   ========================================================================== */
+.luxury-ambient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #FCFAF7 0%, #F5F0E9 100%);
+}
+
+/* Các khối cầu phát sáng mờ ảo di chuyển dịu nhẹ */
+.ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.45;
+    mix-blend-mode: multiply;
+    animation: slowFloat 25s infinite alternate ease-in-out;
+}
+
+.ambient-glow.g1 {
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: #F0E2D0;
+}
+
+.ambient-glow.g2 {
+    bottom: -20%;
+    left: -10%;
+    width: 700px;
+    height: 700px;
+    background: #E6DCCE;
+    animation-delay: -5s;
+}
+
+/* Các hạt biểu tượng trôi nổi tự do tạo chiều sâu */
+.abstract-particle {
+    position: absolute;
+    font-size: 1.6rem;
+    opacity: 0.12;
+    filter: grayscale(40%);
+    animation: particleDrift 35s infinite linear;
+}
+
+.abstract-particle.p1 { top: 20%; left: 10%; animation-delay: 0s; }
+.abstract-particle.p2 { bottom: 25%; right: 12%; animation-delay: -10s; }
+
+@keyframes slowFloat {
+    0% { transform: translateY(0) scale(1) rotate(0deg); }
+    100% { transform: translateY(40px) scale(1.1) rotate(15deg); }
+}
+
+@keyframes particleDrift {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    50% { transform: translateY(-30px) translateX(20px) rotate(180deg); }
+    100% { transform: translateY(0) translateX(0) rotate(360deg); }
+}
+
+/* ==========================================================================
+   3. PROGRESS TIMELINE HEADER (THANH TIẾN TRÌNH THƯỢNG LƯU)
+   ========================================================================== */
+.timeline-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(26, 15, 10, 0.04);
+    z-index: 1000;
+}
+
+.timeline-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-champagne-gold), var(--text-royal-espresso));
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   4. WIZARD CORE CONTAINER & CARDS (HỆ THỐNG PHÂN MÀN & CHUYỂN MÀN)
+   ========================================================================== */
+.wizard-container {
+    max-width: 1120px;
+    margin: 80px auto;
+    padding: 0 24px;
+    position: relative;
+}
+
+.wizard-card {
+    display: none; /* Ẩn mặc định */
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 32px;
+    padding: 56px;
+    box-shadow: 0 30px 70px rgba(125, 110, 101, 0.08);
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wizard-card.active {
+    display: block; /* Hiện màn hình được kích hoạt */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tựa đề đầu mỗi màn hình */
+.card-editorial-head {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 48px auto;
+}
+
+.step-counter {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-champagne-gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.card-editorial-head h2 {
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: var(--text-royal-espresso);
+    margin-bottom: 14px;
+}
+
+.card-editorial-head p {
+    color: var(--text-taupe-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. MÀN 1: HERO & FAQ LAYOUT
+   ========================================================================== */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 56px;
+}
+
+.hero-visual {
+    height: 480px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(26, 15, 10, 0.1);
+}
+
+.image-cover {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.2s ease;
+}
+
+.hero-visual:hover .image-cover {
+    transform: scale(1.04);
+}
+
+.hero-text-block .editorial-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--accent-champagne-gold);
+    font-weight: 600;
+}
+
+.hero-text-block h1 {
+    font-family: var(--font-serif);
+    font-size: 3.8rem;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 16px 0 24px 0;
+}
+
+.editorial-lead {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-taupe-muted);
+    margin-bottom: 36px;
+}
+
+/* Khối câu hỏi thường gặp FAQ Accordion */
+.faq-editorial {
+    border-top: 1px solid var(--border-delicate);
+    padding-top: 48px;
+}
+
+.section-title-sm {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-taupe-muted);
+    margin-bottom: 24px;
+}
+
+.faq-accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-node {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--border-delicate);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.faq-icon::before {
+    content: '＋';
+    font-size: 1.1rem;
+    color: var(--accent-champagne-gold);
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    color: var(--text-taupe-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.faq-node.open {
+    background: #fff;
+    border-color: var(--accent-champagne-gold);
+}
+
+.faq-node.open .faq-icon::before {
+    transform: rotate(45deg);
+}
+
+.faq-node.open .faq-body {
+    max-height: 150px;
+    opacity: 1;
+    margin-top: 14px;
+}
+
+/* ==========================================================================
+   6. MÀN 2: LAB CALCULATOR FORM & 3-COLUMN RESULTS GRID
+   ========================================================================== */
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+.input-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-field-group label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-royal-espresso);
+    letter-spacing: 0.3px;
+}
+
+.input-luxury-box {
+    position: relative;
+    width: 100%;
+}
+
+.input-luxury-box input, 
+.input-luxury-box select {
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--border-delicate);
+    padding: 16px 20px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--text-royal-espresso);
+    border-radius: 14px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: all 0.3s ease;
+}
+
+.input-luxury-box input:focus, 
+.input-luxury-box select:focus {
+    border-color: var(--accent-champagne-gold);
+    box-shadow: 0 0 0 4px rgba(197, 168, 128, 0.1);
+}
+
+.input-suffix {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: var(--text-taupe-muted);
+    pointer-events: none;
+}
+
+/* Hệ thống hiển thị kết quả 3 cột tinh chỉnh */
+.display-results-grid {
+    display: flex;
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.result-luxury-card {
+    flex: 1;
+    min-width: 0;
+    background: #fff;
+    border: 1px solid var(--border-delicate);
+    padding: 24px;
+    border-radius: 20px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.result-luxury-card:hover {
+    transform: translateY(-4px);
+}
+
+.result-luxury-card.gold-tint {
+    border-color: var(--accent-champagne-gold);
+    background: linear-gradient(180deg, #FFFDFB 0%, #FAF5EE 100%);
+}
+
+.res-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-taupe-muted);
+    display: block;
+}
+
+.res-main-val {
+    font-family: var(--font-serif);
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: var(--text-royal-espresso);
+    line-height: 1.1;
+    margin: 12px 0 4px 0;
+}
+
+.res-text-val {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-royal-espresso);
+    margin: 16px 0 6px 0;
+}
+
+.text-small-editorial {
+    font-size: 1.18rem !important;
+    margin-top: 18px !important;
+    margin-bottom: 6px !important;
+    font-weight: 600 !important;
+    color: #94764B !important;
+}
+
+.res-sub-unit {
+    font-size: 0.85rem;
+    color: var(--text-taupe-muted);
+}
+
+/* ==========================================================================
+   7. MÀN 3, 4, 5, 7: STEP EDITORIAL SPLIT VIEW (GIAO DIỆN HƯỚNG DẪN 2 BÊN)
+   ========================================================================== */
+.step-editorial-container {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: center;
+}
+
+.step-media {
+    height: 440px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(26, 15, 10, 0.08);
+}
+
+.step-indicator-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-champagne-gold);
+    font-weight: 600;
+}
+
+.step-details h2 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin: 12px 0 20px 0;
+}
+
+.step-description {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--text-taupe-muted);
+}
+
+.text-gold-highlight {
+    color: #94764B;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   8. MÀN 6: COUNTDOWN TIMER & BREW JOURNAL (ĐỒNG HỒ & NHẬT KÝ NGHỆ NHÂN)
+   ========================================================================== */
+.timer-center-layout {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.center-lead {
+    color: var(--text-taupe-muted);
+    font-size: 1.05rem;
+    margin: 12px 0 36px 0;
+}
+
+.luxury-clock-face {
+    font-family: var(--font-serif);
+    font-size: 5.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--text-royal-espresso);
+    margin-bottom: 28px;
+    background: linear-gradient(180deg, var(--text-royal-espresso) 60%, var(--text-taupe-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clock-control-panel {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+/* Hộp lưu trữ ghi chú cao cấp */
+.luxury-journal-card {
+    background: #fff;
+    border: 1px solid var(--border-delicate);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: left;
+    box-shadow: 0 15px 35px rgba(26, 15, 10, 0.03);
+}
+
+.luxury-journal-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    letter-spacing: 0.3px;
+}
+
+.journal-premium-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.journal-premium-input input {
+    flex: 1;
+    border: 1px solid var(--border-delicate);
+    background: var(--bg-luxury-alabaster);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.journal-premium-input input:focus {
+    border-color: var(--accent-champagne-gold);
+}
+
+.journal-render-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.journal-entry-row {
+    font-size: 0.92rem;
+    color: var(--text-royal-espresso);
+    background: rgba(245, 240, 233, 0.4);
+    padding: 12px 16px;
+    border-radius: 10px;
+    border-left: 3px solid var(--accent-champagne-gold);
+}
+
+/* ==========================================================================
+   9. MÀN 8: FLAVOR PROFILE GRID (BẢN ĐỒ HƯƠNG VỊ)
+   ========================================================================== */
+.luxury-flavor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.flavor-premium-item {
+    background: #fff;
+    border: 1px solid var(--border-delicate);
+    border-radius: 20px;
+    padding: 32px 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.flavor-top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+}
+
+.flavor-premium-item.border-light .flavor-top-line { background: #EADBC8; }
+.flavor-premium-item.border-medium .flavor-top-line { background: #DAC0A3; }
+.flavor-premium-item.border-dark .flavor-top-line { background: #643843; }
+
+.flavor-premium-item h4 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.flavor-meta-tag {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-champagne-gold);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.flavor-premium-item p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-taupe-muted);
+}
+
+/* ==========================================================================
+   10. MÀN 9: SUCCESS VIEWPORT (MÀN HÌNH HOÀN THÀNH)
+   ========================================================================== */
+.luxury-success-viewport {
+    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.gold-pulse-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #E2D4C1 0%, #C5A880 100%);
+    color: #fff;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 32px auto;
+    box-shadow: 0 15px 35px rgba(197, 168, 128, 0.4);
+    animation: luxuryPulse 2s infinite;
+}
+
+@keyframes luxuryPulse {
+    0% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.5); }
+    70% { box-shadow: 0 0 0 18px rgba(197, 168, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); }
+}
+
+.luxury-success-viewport h2 {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.luxury-success-viewport p {
+    color: var(--text-taupe-muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+/* ==========================================================================
+   11. BUTTONS & ACTIONS SYSTEM (HỆ THỐNG NÚT ĐIỀU HƯỚNG LUXURY)
+   ========================================================================== */
+.wizard-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-delicate);
+}
+
+.border-top-none {
+    border-top: none !important;
+    margin-top: 32px !important;
+    padding-top: 0 !important;
+}
+
+/* Nút bấm Premium chính */
+.btn-premium {
+    background: var(--text-royal-espresso);
+    color: var(--bg-luxury-alabaster);
+    border: none;
+    padding: 16px 36px;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(26, 15, 10, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-premium:hover {
+    background: #332219;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(26, 15, 10, 0.25);
+}
+
+.icon-arrow {
+    transition: transform 0.3s ease;
+}
+
+.btn-premium:hover .icon-arrow {
+    transform: translateX(4px);
+}
+
+/* Nút chỉ chữ tối giản */
+.btn-text-only {
+    background: transparent;
+    border: none;
+    color: var(--text-taupe-muted);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-text-only:hover {
+    color: var(--text-royal-espresso);
+}
+
+/* Nút hành động trong bảng Đồng hồ điều khiển */
+.btn-luxury-action {
+    background: var(--text-royal-espresso);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-luxury-action-neutral {
+    background: transparent;
+    border: 1px solid var(--border-delicate);
+    color: var(--text-royal-espresso);
+    padding: 14px 24px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-luxury-action-neutral:hover {
+    background: rgba(26, 15, 10, 0.04);
+}
+
+/* Nút lưu ký sự */
+.btn-add-journal {
+    background: var(--accent-champagne-gold);
+    border: none;
+    color: #fff;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-add-journal:hover {
+    background: #B2956E;
+}
+
+/* Nút thành công mẻ ủ */
+.btn-success-luxury {
+    background: linear-gradient(135deg, #A8895E 0%, #765B3B 100%);
+    box-shadow: 0 10px 25px rgba(120, 90, 60, 0.2);
+}
+
+.btn-success-luxury:hover {
+    background: linear-gradient(135deg, #967951 0%, #634C30 100%);
+}
+
+/* ==========================================================================
+   12. WIKI HIGHLIGHT & LUXURY HOVER CARD SYSTEM (PREMIUM TOOLTIP SYSTEM)
+   ========================================================================== */
+.wiki-highlight {
+    position: relative;
+    border-bottom: 1.5px dashed var(--accent-champagne-gold);
+    color: var(--text-royal-espresso);
+    font-weight: 500;
+    cursor: help;
+    padding: 0 2px;
+    display: inline-block;
+    background: linear-gradient(to top, rgba(197, 168, 128, 0.16) 40%, transparent 40%);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wiki-highlight:hover {
+    color: #8D6E45;
+    background: linear-gradient(to top, rgba(197, 168, 128, 0.35) 40%, transparent 40%);
+}
+
+/* Thẻ giải nghĩa trượt lên */
+.wiki-highlight::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    width: 280px;
+    padding: 16px 20px;
+    background: var(--text-royal-espresso);
+    color: var(--bg-luxury-alabaster);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.2px;
+    border-radius: 14px;
+    box-shadow: 0 20px 45px rgba(26, 15, 10, 0.25);
+    text-align: left;
+    white-space: normal;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Mũi tên tam giác liên kết nhỏ */
+.wiki-highlight::before {
+    content: '';
+    position: absolute;
+    bottom: 124%;
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    border-width: 7px;
+    border-style: solid;
+    border-color: var(--text-royal-espresso) transparent transparent transparent;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Kích hoạt khi Hover */
+.wiki-highlight:hover::after,
+.wiki-highlight:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   13. RESPONSIVE MEDIA QUERIES (TỐI ƯU HÓA DI ĐỘNG & TABLET)
+   ========================================================================== */
+@media (max-width: 960px) {
+    .hero-grid, 
+    .step-editorial-container {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    
+    .hero-visual, 
+    .step-media {
+        height: 320px;
+    }
+    
+    .hero-text-block h1 {
+        font-size: 2.8rem;
+    }
+    
+    .wizard-card {
+        padding: 32px 24px;
+    }
+    
+    .luxury-flavor-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .display-results-grid {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .luxury-clock-face {
+        font-size: 3.8rem;
+    }
+    
+    .wiki-highlight::after {
+        width: 230px;
+        padding: 12px 16px;
+        font-size: 0.78rem;
+    }
+}
