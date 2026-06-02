@@ -2,14 +2,11 @@
    1. VARIABLES & GLOBAL RESETS (THIẾT LẬP HỆ THỐNG & ĐỊNH HƯỚNG MÀU SẮC)
    ========================================================================== */
 :root {
-    /* Bảng màu tối giản sang trọng phong cách Haute Couture */
-    --bg-luxury-alabaster: #FBF9F6;       /* Nền trắng sứ mịn */
-    --text-royal-espresso: #1A0F0A;       /* Nâu đen hạt Espresso đậm */
-    --text-taupe-muted: #7D6E65;          /* Nâu xám tro thanh lịch */
-    --accent-champagne-gold: #C5A880;     /* Vàng Champagne Thượng hạng */
-    --border-delicate: #EAE3DA;           /* Đường viền mờ tinh tế */
-    
-    /* Hệ thống Font chữ tạp chí nghệ thuật */
+    --bg-luxury-alabaster: #FBF9F6;       
+    --text-royal-espresso: #1A0F0A;       
+    --text-taupe-muted: #7D6E65;          
+    --accent-champagne-gold: #C5A880;     
+    --border-delicate: #EAE3DA;           
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
 }
@@ -18,6 +15,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* Xóa bỏ hoàn toàn vệt màu xanh/xám khó chịu khi nhấn trên màn hình điện thoại */
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 body {
@@ -31,7 +30,7 @@ body {
 }
 
 /* ==========================================================================
-   2. LUXURY AMBIENT BACKGROUND (HỆ THỐNG NỀN NGHỆ THUẬT CHUYỂN ĐỘNG CHẬM)
+   2. LUXURY AMBIENT BACKGROUND
    ========================================================================== */
 .luxury-ambient {
     position: fixed;
@@ -44,7 +43,6 @@ body {
     background: radial-gradient(circle at 50% 50%, #FCFAF7 0%, #F5F0E9 100%);
 }
 
-/* Các khối cầu phát sáng mờ ảo di chuyển dịu nhẹ */
 .ambient-glow {
     position: absolute;
     border-radius: 50%;
@@ -71,7 +69,6 @@ body {
     animation-delay: -5s;
 }
 
-/* Các hạt biểu tượng trôi nổi tự do tạo chiều sâu */
 .abstract-particle {
     position: absolute;
     font-size: 1.6rem;
@@ -95,7 +92,7 @@ body {
 }
 
 /* ==========================================================================
-   3. PROGRESS TIMELINE HEADER (THANH TIẾN TRÌNH THƯỢNG LƯU)
+   3. PROGRESS TIMELINE HEADER
    ========================================================================== */
 .timeline-header {
     position: fixed;
@@ -115,7 +112,7 @@ body {
 }
 
 /* ==========================================================================
-   4. WIZARD CORE CONTAINER & CARDS (HỆ THỐNG PHÂN MÀN & CHUYỂN MÀN)
+   4. WIZARD CORE CONTAINER & CARDS
    ========================================================================== */
 .wizard-container {
     max-width: 1120px;
@@ -125,7 +122,7 @@ body {
 }
 
 .wizard-card {
-    display: none; /* Ẩn mặc định */
+    display: none; 
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -139,12 +136,11 @@ body {
 }
 
 .wizard-card.active {
-    display: block; /* Hiện màn hình được kích hoạt */
+    display: block; 
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Tựa đề đầu mỗi màn hình */
 .card-editorial-head {
     text-align: center;
     max-width: 650px;
@@ -229,7 +225,6 @@ body {
     margin-bottom: 36px;
 }
 
-/* Khối câu hỏi thường gặp FAQ Accordion */
 .faq-editorial {
     border-top: 1px solid var(--border-delicate);
     padding-top: 48px;
@@ -300,7 +295,7 @@ body {
 }
 
 /* ==========================================================================
-   6. MÀN 2: LAB CALCULATOR FORM & 3-COLUMN RESULTS GRID
+   6. MÀN 2: LAB CALCULATOR FORM & RESULTS GRID
    ========================================================================== */
 .calculator-form {
     display: flex;
@@ -364,7 +359,6 @@ body {
     pointer-events: none;
 }
 
-/* Hệ thống hiển thị kết quả 3 cột tinh chỉnh */
 .display-results-grid {
     display: flex;
     gap: 20px;
@@ -425,7 +419,7 @@ body {
 }
 
 /* ==========================================================================
-   7. MÀN 3, 4, 5, 7: STEP EDITORIAL SPLIT VIEW (GIAO DIỆN HƯỚNG DẪN 2 BÊN)
+   7. STEP EDITORIAL SPLIT VIEW
    ========================================================================== */
 .step-editorial-container {
     display: grid;
@@ -468,7 +462,7 @@ body {
 }
 
 /* ==========================================================================
-   8. MÀN 6: COUNTDOWN TIMER & BREW JOURNAL (ĐỒNG HỒ & NHẬT KÝ NGHỆ NHÂN)
+   8. COUNTDOWN TIMER & BREW JOURNAL
    ========================================================================== */
 .timer-center-layout {
     text-align: center;
@@ -501,7 +495,6 @@ body {
     margin-bottom: 48px;
 }
 
-/* Hộp lưu trữ ghi chú cao cấp */
 .luxury-journal-card {
     background: #fff;
     border: 1px solid var(--border-delicate);
@@ -555,7 +548,7 @@ body {
 }
 
 /* ==========================================================================
-   9. MÀN 8: FLAVOR PROFILE GRID (BẢN ĐỒ HƯƠNG VỊ)
+   9. FLAVOR PROFILE GRID
    ========================================================================== */
 .luxury-flavor-grid {
     display: grid;
@@ -609,7 +602,7 @@ body {
 }
 
 /* ==========================================================================
-   10. MÀN 9: SUCCESS VIEWPORT (MÀN HÌNH HOÀN THÀNH)
+   10. SUCCESS VIEWPORT
    ========================================================================== */
 .luxury-success-viewport {
     text-align: center;
@@ -653,7 +646,7 @@ body {
 }
 
 /* ==========================================================================
-   11. BUTTONS & ACTIONS SYSTEM (HỆ THỐNG NÚT ĐIỀU HƯỚNG LUXURY)
+   11. BUTTONS & ACTIONS SYSTEM
    ========================================================================== */
 .wizard-footer {
     display: flex;
@@ -670,7 +663,6 @@ body {
     padding-top: 0 !important;
 }
 
-/* Nút bấm Premium chính */
 .btn-premium {
     background: var(--text-royal-espresso);
     color: var(--bg-luxury-alabaster);
@@ -693,7 +685,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Nút chỉ chữ tối giản */
 .btn-text-only {
     background: transparent;
     border: none;
@@ -709,7 +700,6 @@ body {
     color: var(--text-royal-espresso);
 }
 
-/* Nút hành động trong bảng Đồng hồ điều khiển */
 .btn-luxury-action {
     background: var(--text-royal-espresso);
     color: #fff;
@@ -739,7 +729,6 @@ body {
     background: rgba(26, 15, 10, 0.04);
 }
 
-/* Nút lưu ký sự */
 .btn-add-journal {
     background: var(--accent-champagne-gold);
     border: none;
@@ -756,7 +745,6 @@ body {
     background: #B2956E;
 }
 
-/* Nút thành công mẻ ủ */
 .btn-success-luxury {
     background: linear-gradient(135deg, #A8895E 0%, #765B3B 100%);
     box-shadow: 0 10px 25px rgba(120, 90, 60, 0.2);
@@ -767,7 +755,7 @@ body {
 }
 
 /* ==========================================================================
-   12. WIKI HIGHLIGHT & LUXURY HOVER CARD SYSTEM (PREMIUM TOOLTIP SYSTEM)
+   12. WIKI HIGHLIGHT & LUXURY HOVER CARD SYSTEM (PREMIUM TOOLTIP)
    ========================================================================== */
 .wiki-highlight {
     position: relative;
@@ -778,55 +766,49 @@ body {
     padding: 0 2px;
     display: inline-block;
     background: linear-gradient(to top, rgba(197, 168, 128, 0.16) 40%, transparent 40%);
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Thẻ giải nghĩa trượt lên */
+/* Thẻ giải nghĩa mặc định ẩn */
 .wiki-highlight::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 140%;
+    bottom: 135%;
     left: 50%;
-    transform: translateX(-50%) translateY(12px);
-    width: 280px;
-    padding: 16px 20px;
-    background: var(--text-royal-espresso);
-    color: var(--bg-luxury-alabaster);
+    transform: translateX(-50%) translateY(10px);
+    width: 260px; /* Định kích thước chuẩn không móp trên mobile */
+    padding: 12px 16px;
+    background: #1A0F0A; 
+    color: #FBF9F6;
     font-family: var(--font-sans);
     font-size: 0.82rem;
-    font-weight: 300;
-    line-height: 1.55;
-    letter-spacing: 0.2px;
-    border-radius: 14px;
-    box-shadow: 0 20px 45px rgba(26, 15, 10, 0.25);
+    line-height: 1.5;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
     text-align: left;
     white-space: normal;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Mũi tên tam giác liên kết nhỏ */
+/* Mũi tên liên kết nhỏ */
 .wiki-highlight::before {
     content: '';
     position: absolute;
-    bottom: 124%;
+    bottom: 120%;
     left: 50%;
-    transform: translateX(-50%) translateY(12px);
-    border-width: 7px;
+    transform: translateX(-50%) translateY(10px);
+    border-width: 6px;
     border-style: solid;
-    border-color: var(--text-royal-espresso) transparent transparent transparent;
+    border-color: #1A0F0A transparent transparent transparent;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-                transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
-
 
 /* ==========================================================================
    13. TÁCH BIỆT TRẢI NGHIỆM ĐA THIẾT BỊ (MÁY TÍNH HOVER VS ĐIỆN THOẠI TOUCH)
@@ -834,7 +816,6 @@ body {
 
 /* --- Dành Cho Thiết Bị Có Chuột (Desktop) --- */
 @media (hover: hover) {
-    /* Hiệu ứng di chuột của nút chính */
     .btn-premium:hover {
         background: #332219;
         transform: translateY(-2px);
@@ -844,13 +825,12 @@ body {
         transform: translateX(4px);
     }
 
-    /* Hiệu ứng di chuột của thẻ kết quả */
     .result-luxury-card:hover {
         transform: translateY(-4px);
         border-color: var(--accent-champagne-gold);
     }
 
-    /* Kích hoạt Tooltip khi Hover trên Máy tính */
+    /* Kích hoạt Tooltip bằng hover chuột trên Desktop */
     .wiki-highlight:hover {
         color: #8D6E45;
         background: linear-gradient(to top, rgba(197, 168, 128, 0.35) 40%, transparent 40%);
@@ -865,33 +845,24 @@ body {
 
 /* --- Dành Cho Thiết Bị Cảm Ứng (Mobile / Tablet) --- */
 @media (hover: none) {
-    /* Phản hồi xúc giác nhanh khi ngón tay chạm chạm vào nút */
     .btn-premium:active {
         background: #000000;
         transform: scale(0.97);
-        transition: transform 0.1s ease;
     }
 
-    /* Chạm nhẹ vào thẻ kết quả */
     .result-luxury-card:active {
         background-color: #FAF6F0;
         transform: scale(0.99);
     }
-
-    /* Giao diện Tooltip khi được chạm trên Mobile (Tránh lỗi dính hover) */
-    .wiki-highlight:active {
-        color: #8D6E45;
-        background: linear-gradient(to top, rgba(197, 168, 128, 0.45) 40%, transparent 40%);
-    }
-    .wiki-highlight:active::after,
-    .wiki-highlight:active::before {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0);
-        transition: opacity 0.2s ease, transform 0.2s ease;
-    }
 }
 
+/* Lớp kích hoạt trạng thái xem Tooltip riêng bằng JavaScript cho Điện Thoại */
+.wiki-highlight.touch-active::after,
+.wiki-highlight.touch-active::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
 
 /* ==========================================================================
    14. RESPONSIVE MEDIA QUERIES (TỐI ƯU HÓA DI ĐỘNG & TABLET)
@@ -936,10 +907,11 @@ body {
     .luxury-clock-face {
         font-size: 3.8rem;
     }
-    
+}
+
+@media (max-width: 480px) {
     .wiki-highlight::after {
-        width: 230px;
-        padding: 12px 16px;
+        width: 220px;
         font-size: 0.78rem;
     }
 }

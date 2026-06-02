@@ -29,7 +29,6 @@ function runGoldRatioCalc() {
     const beanSelect = document.getElementById('bean-select');
     const methodSelect = document.getElementById('method-select');
 
-    // DOM các thẻ kết quả hiển thị
     const waterDisplayVal = document.getElementById('water-result-val');
     const grindDisplayVal = document.getElementById('grind-result-val');
     const grindDescVal = document.getElementById('grind-desc-val');
@@ -47,14 +46,12 @@ function runGoldRatioCalc() {
         return;
     }
 
-    // 1. Tính toán lượng nước
     let dynamicWater = Math.round(grams * ratio);
     waterDisplayVal.innerText = dynamicWater.toLocaleString('vi-VN');
     if (nestedWaterText) {
         nestedWaterText.innerText = `${dynamicWater}ml`;
     }
 
-    // 2. Cấu hình Kích thước hạt theo Phương Pháp Pha
     if (selectedMethod === "immersion") {
         grindDisplayVal.innerText = "Coarse / Thô";
         grindDescVal.innerText = "Kích thước to như muối biển thô.";
@@ -66,7 +63,6 @@ function runGoldRatioCalc() {
         grindDescVal.innerText = "Kích thước hạt cát mịn tiêu chuẩn.";
     }
 
-    // 3. Cấu hình Nốt hương dự kiến theo Loại Hạt
     if (selectedBean === "arabica") {
         flavorDisplayVal.innerText = "Fruity & Floral";
         flavorDescVal.innerText = "Chua thanh dịu, sáng rõ vị quả mọng.";
@@ -102,7 +98,19 @@ function handleTimerToggle() {
         triggerBtn.innerText = "⏸ Tạm Dừng Chu Kỳ";
         triggerBtn.style.backgroundColor = "var(--accent-champagne-gold)";
         
-        // [TÍCH HỢP]: Tự động gọi kích hoạt lịch nhắc hẹn giờ hệ thống (.ics) ngay khi bấm chạy
+        // >>> KHU VỰC LIÊN KẾT ỨNG DỤNG BẤM GIỜ HỆ THỐNG TRÊN ĐIỆN THOẠI <<<
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const totalSecondsToSet = secondsRemaining; 
+        
+        if (/android/i.test(userAgent)) {
+            // Android: Gửi Intent chạy tính năng Đếm ngược gốc của app Đồng hồ
+            window.location.href = `intent://#Intent;action=android.intent.action.SET_TIMER;i;android.intent.extra.alarm.LENGTH=${totalSecondsToSet};i;android.intent.extra.alarm.SKIP_UI=false;end;`;
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            // iOS: Cơ chế bảo mật Apple không cho truyền giây, dùng URL Scheme để mở nhanh ứng dụng Clock (Đồng hồ) mặc định
+            window.location.href = "clock-alarm://";
+        }
+
+        // Đồng thời tải xuống file nhắc lịch .ics để thêm sự kiện đồng bộ vào Google Calendar/Apple Calendar
         let hoursToSteep = Math.round(secondsRemaining / 3600);
         if (hoursToSteep > 0) {
             henGioColdBrew(hoursToSteep);
@@ -195,7 +203,7 @@ function shatterCelebrationConfetti() {
     });
 }
 
-// --- ĐỒNG BỘ HẸN GIỜ TRÊN APP LỊCH HỆ THỐNG ---
+// --- ĐỒNG BỘ HẸN GIỜ TRÊN APP LỊCH HỆ THỐNG (.ICS) ---
 function henGioColdBrew(hoursToSteep) {
     const now = new Date();
     const endTime = new Date(now.getTime() + hoursToSteep * 60 * 60 * 1000);
@@ -236,9 +244,39 @@ END:VCALENDAR`;
     document.body.removeChild(link);
 }
 
+// --- HÀM XỬ LÝ CLICK ĐỂ BẬT/TẮT VÀ ẨN HIGHLIGHT TOOLTIP TRÊN ĐIỆN THOẠI ---
+function initMobileWikiTooltips() {
+    const highlights = document.querySelectorAll('.wiki-highlight');
+    
+    highlights.forEach(el => {
+        el.addEventListener('click', (e) => {
+            // Chỉ can thiệp bằng JS nếu thiết bị không hỗ trợ hover (Màn hình cảm ứng Mobile)
+            if (window.matchMedia('(hover: none)').matches) {
+                e.stopPropagation(); // Ngăn sự kiện click lan ra đối tượng cha bên ngoài
+                
+                const isCurrentlyActive = el.classList.contains('touch-active');
+                
+                // Đóng toàn bộ các Tooltip khác đang mở trước đó
+                highlights.forEach(h => h.classList.remove('touch-active'));
+                
+                // Bật/tắt trạng thái của phần tử hiện tại
+                if (!isCurrentlyActive) {
+                    el.classList.add('touch-active');
+                }
+            }
+        });
+    });
+
+    // Khi chạm ra ngoài vùng trống của màn hình, tự động đóng toàn bộ Tooltip đang kẹt
+    document.addEventListener('click', () => {
+        highlights.forEach(h => h.classList.remove('touch-active'));
+    });
+}
+
 // --- KHỞI CHẠY ĐỒNG BỘ KHI LOAD TRANG ---
 window.addEventListener('load', () => {
     runGoldRatioCalc();
     populateJournalUI();
     updateLuxuryProgressBar();
+    initMobileWikiTooltips(); // Kích hoạt bộ lắng nghe sự kiện chạm sửa lỗi highlight
 });
