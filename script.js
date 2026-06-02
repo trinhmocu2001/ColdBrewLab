@@ -54,7 +54,7 @@ function runGoldRatioCalc() {
         nestedWaterText.innerText = `${dynamicWater}ml`;
     }
 
-    // 2. Cấu hình Kích thước hạt theo Phương Pháp Pha (Brewing Method)
+    // 2. Cấu hình Kích thước hạt theo Phương Pháp Pha
     if (selectedMethod === "immersion") {
         grindDisplayVal.innerText = "Coarse / Thô";
         grindDescVal.innerText = "Kích thước to như muối biển thô.";
@@ -66,7 +66,7 @@ function runGoldRatioCalc() {
         grindDescVal.innerText = "Kích thước hạt cát mịn tiêu chuẩn.";
     }
 
-    // 3. Cấu hình Nốt hương dự kiến theo Loại Hạt (Coffee Beans)
+    // 3. Cấu hình Nốt hương dự kiến theo Loại Hạt
     if (selectedBean === "arabica") {
         flavorDisplayVal.innerText = "Fruity & Floral";
         flavorDescVal.innerText = "Chua thanh dịu, sáng rõ vị quả mọng.";
@@ -101,6 +101,12 @@ function handleTimerToggle() {
     if (countdownEngine === null) {
         triggerBtn.innerText = "⏸ Tạm Dừng Chu Kỳ";
         triggerBtn.style.backgroundColor = "var(--accent-champagne-gold)";
+        
+        // [TÍCH HỢP]: Tự động gọi kích hoạt lịch nhắc hẹn giờ hệ thống (.ics) ngay khi bấm chạy
+        let hoursToSteep = Math.round(secondsRemaining / 3600);
+        if (hoursToSteep > 0) {
+            henGioColdBrew(hoursToSteep);
+        }
         
         countdownEngine = setInterval(() => {
             if (secondsRemaining <= 0) {
@@ -189,19 +195,11 @@ function shatterCelebrationConfetti() {
     });
 }
 
-window.addEventListener('load', () => {
-    runGoldRatioCalc();
-    populateJournalUI();
-    updateLuxuryProgressBar();
-});
+// --- ĐỒNG BỘ HẸN GIỜ TRÊN APP LỊCH HỆ THỐNG ---
 function henGioColdBrew(hoursToSteep) {
-    // 1. Lấy thời gian hiện tại
     const now = new Date();
-    
-    // 2. Tính thời gian sau X tiếng nữa (khi Cold Brew chín)
     const endTime = new Date(now.getTime() + hoursToSteep * 60 * 60 * 1000);
     
-    // Định dạng thời gian theo chuẩn file Lịch (YYYYMMDDTHHMMSSZ)
     const formatTime = (date) => {
         return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
     };
@@ -209,7 +207,6 @@ function henGioColdBrew(hoursToSteep) {
     const startTimeStr = formatTime(now);
     const endTimeStr = formatTime(endTime);
 
-    // 3. Tạo nội dung file Lịch (.ics) chuẩn hệ điều hành
     const icsContent = 
 `BEGIN:VCALENDAR
 VERSION:2.0
@@ -229,24 +226,19 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`;
 
-    // 4. Tạo link tải xuống và kích hoạt trên điện thoại
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'nhac-nho-coldbrew.ics';
+    link.download = `nhac-nho-coldbrew-${hoursToSteep}h.ics`;
     
-    // Kích hoạt app Lịch trên điện thoại mở ra
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-// VÍ DỤ CÁCH DÙNG:
-// Khi người dùng bấm nút "Bắt đầu ngâm 16 tiếng"
-document.getElementById("start-timer-btn").addEventListener("click", () => {
-    // Chạy đếm ngược trên giao diện web như cũ
-    // ... code chạy timeline của bạn ...
-    
-    // Đồng thời gọi hàm này để kích hoạt hẹn giờ vào hệ thống điện thoại
-    henGioColdBrew(16); // Truyền số 16 tiếng vào đây
+// --- KHỞI CHẠY ĐỒNG BỘ KHI LOAD TRANG ---
+window.addEventListener('load', () => {
+    runGoldRatioCalc();
+    populateJournalUI();
+    updateLuxuryProgressBar();
 });

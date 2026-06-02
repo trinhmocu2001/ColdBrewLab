@@ -1,322 +1,643 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
+
 <html lang="vi">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cold Brew Lab — The Premium Experience</title>
+
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
+
+
     <div class="luxury-ambient">
+
         <div class="ambient-glow g1"></div>
+
         <div class="ambient-glow g2"></div>
+
         <div class="abstract-particle p1">🫘</div>
+
         <div class="abstract-particle p2">🫗</div>
+
     </div>
 
+
+
     <div class="timeline-header">
+
         <div class="timeline-progress" id="top-progress-indicator"></div>
+
     </div>
+
+
 
     <main class="wizard-container">
 
+
+
         <!-- MÀN 1: HERO & FAQ LUXURY -->
+
         <section class="wizard-card active" id="card-1">
+
             <div class="hero-grid">
+
                 <div class="hero-visual">
+
                     <div class="image-cover" style="background-image: url('https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1000&auto=format&fit=crop');"></div>
+
                 </div>
+
                 <div class="hero-text-block">
+
                     <span class="editorial-tag">Artisan Craftsmanship</span>
+
                     <h1>The Art of Slow Extraction</h1>
+
                     <p class="editorial-lead">Khám phá hành trình <span class="wiki-highlight" data-tooltip="Phương pháp ngâm bột cà phê trực tiếp trong nước mát/nhiệt độ phòng kéo dài từ 12-24 tiếng, giúp giảm thiểu axit đắng gắt.">chiết xuất lạnh</span> nguyên bản. Nơi thời gian và sự kiên nhẫn tạo nên những nốt hương mượt mà tựa nhung lụa.</p>
+
                     <button class="btn-premium" onclick="navigateToCard(2)">
+
                         <span>Start Brewing</span>
+
                         <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                     </button>
+
                 </div>
+
             </div>
+
+
 
             <div class="faq-editorial">
+
                 <h3 class="section-title-sm">Essential Knowledge / FAQ</h3>
+
                 <div class="faq-accordion-group">
+
                     <div class="faq-node" onclick="handleFaqToggle(this)">
+
                         <div class="faq-head">
+
                             <span>Ngâm ủ trong bao lâu là hoàn hảo?</span>
+
                             <span class="faq-icon"></span>
+
                         </div>
+
                         <div class="faq-body">Thời gian chiết xuất lý tưởng kéo dài từ 12 đến 18 tiếng. Chu kỳ này giúp giải phóng hoàn toàn vị ngọt tự nhiên của hạt và giữ lại các <span class="wiki-highlight" data-tooltip="Các hợp chất như Tannin và Axit Clorogenic, thường tan mạnh ở nhiệt độ cao gây ra vị đắng nghét chát ngòm.">hợp chất đắng gắt</span> trong bã.</div>
+
                     </div>
+
                     <div class="faq-node" onclick="handleFaqToggle(this)">
+
                         <div class="faq-head">
+
                             <span>Bảo quản thành phẩm như thế nào?</span>
+
                             <span class="faq-icon"></span>
+
                         </div>
+
                         <div class="faq-body">Sau khi tách bã tinh khiết, nước cốt bảo quản trong chai thủy tinh đậy kín tại ngăn mát tủ lạnh có thể giữ trọn hương vị thượng hạng từ 7 đến 10 ngày.</div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 2: CONFIGURATION & RATIO LAB (BẢN CẬP NHẬT ĐA LỰA CHỌN) -->
+
         <section class="wizard-card" id="card-2">
+
             <div class="card-editorial-head">
+
                 <span class="step-counter">Custom Brew Lab</span>
+
                 <h2>Thiết Lập Công Thức</h2>
+
                 <p>Cá nhân hóa mẻ ủ bằng cách lựa chọn hạt nguyên bản và phương pháp chiết xuất tinh hoa.</p>
+
             </div>
+
+
 
             <div class="calculator-form">
+
                 <!-- HÀNG 1: ĐỊNH LƯỢNG & LOẠI HẠT -->
+
                 <div class="form-row">
+
                     <div class="input-field-group">
+
                         <label>Lượng Cà Phê Hạt (Grams)</label>
+
                         <div class="input-luxury-box">
+
                             <input type="number" id="grams-input" value="50" min="1" oninput="runGoldRatioCalc()">
+
                             <span class="input-suffix">g</span>
+
                         </div>
+
                     </div>
+
                     <div class="input-field-group">
+
                         <label>Loại Hạt Cà Phê</label>
+
                         <div class="input-luxury-box">
+
                             <select id="bean-select" onchange="runGoldRatioCalc()">
+
                                 <option value="arabica" selected>Arabica Bourbon (Hương hoa & Quả mọng)</option>
+
                                 <option value="robusta">Robusta Fine (Đậm đà & Sô-cô-la đắng)</option>
+
                                 <option value="blend">Signature Blend 70/30 (Cân bằng tinh tế)</option>
+
                             </select>
+
                         </div>
+
                     </div>
+
                 </div>
+
+
 
                 <!-- HÀNG 2: TỶ LỆ & PHƯƠNG PHÁP PHA -->
+
                 <div class="form-row">
+
                     <div class="input-field-group">
+
                         <label>Tỷ Lệ Chiết Xuất (Ratio)</label>
+
                         <div class="input-luxury-box">
+
                             <select id="ratio-select" onchange="runGoldRatioCalc()">
+
                                 <option value="8">1:8 — Đậm đặc (Chuyên pha sữa)</option>
+
                                 <option value="10" selected>1:10 — Cân bằng (Chuẩn vị Barista)</option>
+
                                 <option value="12">1:12 — Thanh khiết (Thưởng thức mộc)</option>
+
                             </select>
+
                         </div>
+
                     </div>
+
                     <div class="input-field-group">
+
                         <label>Phương Pháp Ủ Lạnh</label>
+
                         <div class="input-luxury-box">
+
                             <select id="method-select" onchange="runGoldRatioCalc()">
+
                                 <option value="immersion" selected>Immersion (Ngâm ủ bình thủy tinh)</option>
+
                                 <option value="kyoto">Kyoto Style (Nhỏ giọt băng đá chậm)</option>
+
                                 <option value="filter-bag">Filter Bag (Ủ túi lọc tiện lợi)</option>
+
                             </select>
+
                         </div>
+
                     </div>
+
                 </div>
+
+
 
                 <!-- BẢNG HIỂN THỊ KẾT QUẢ 3 CỘT CAO CẤP -->
+
                 <div class="display-results-grid">
+
                     <div class="result-luxury-card">
+
                         <span class="res-label">Dung môi nước lọc tinh khiết</span>
+
                         <div class="res-main-val" id="water-result-val">500</div>
+
                         <span class="res-sub-unit">ml nước mát</span>
+
                     </div>
+
                     <div class="result-luxury-card gold-tint">
+
                         <span class="res-label">Kích thước hạt xay</span>
+
                         <div class="res-text-val" id="grind-result-val">Coarse / Thô cứng</div>
+
                         <span class="res-sub-unit" id="grind-desc-val">Kích thước như muối biển</span>
+
                     </div>
+
                     <div class="result-luxury-card">
+
                         <span class="res-label">Tầng hương vị dự kiến</span>
+
                         <div class="res-text-val text-small-editorial" id="flavor-result-val">Fruity & Floral</div>
+
                         <span class="res-sub-unit" id="flavor-desc-val">Chua thanh, sáng rõ vị quả mọng</span>
+
                     </div>
+
                 </div>
+
             </div>
 
+
+
             <div class="wizard-footer">
+
                 <button class="btn-text-only" onclick="navigateToCard(1)">🡠 Quay lại</button>
+
                 <button class="btn-premium" onclick="navigateToCard(3)">
+
                     <span>Bước 1: Xay Hạt</span>
+
                     <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                 </button>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 3: BƯỚC 1 — XAY CÀ PHÊ -->
+
         <section class="wizard-card" id="card-3">
+
             <div class="step-editorial-container">
+
                 <div class="step-media">
+
                     <div class="image-cover" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop');"></div>
+
                 </div>
+
                 <div class="step-details">
+
                     <span class="step-indicator-tag">Mẻ Ủ Lạnh / Bước 01</span>
+
                     <h2>Nghiền Thô Cà Phê</h2>
+
                     <p class="step-description">Tiến hành xay hạt cà phê theo đúng cấu trúc yêu cầu của phương pháp. Việc giữ hạt ở kích thước chuẩn giúp dòng nước thẩm thấu sâu, đồng đều mà không làm lọt <span class="wiki-highlight" data-tooltip="Những hạt bụi cà phê siêu nhỏ sinh ra trong quá trình xay. Bột mịn quá nhiều sẽ đi xuyên qua giấy lọc, tạo cặn đáy và làm đắng nước cốt.">bột mịn</span> vào nước cốt.</p>
+
                     <div class="wizard-footer border-top-none">
+
                         <button class="btn-text-only" onclick="navigateToCard(2)">🡠 Quay lại</button>
+
                         <button class="btn-premium" onclick="navigateToCard(4)">
+
                             <span>Tiếp tục: Thêm Nước</span>
+
                             <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                         </button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 4: BƯỚC 2 — THÊM NƯỚC -->
+
         <section class="wizard-card" id="card-4">
+
             <div class="step-editorial-container">
+
                 <div class="step-media">
+
                     <div class="image-cover" style="background-image: url('https://images.unsplash.com/photo-1508737027454-e6454ef45afd?q=80&w=800&auto=format&fit=crop');"></div>
+
                 </div>
+
                 <div class="step-details">
+
                     <span class="step-indicator-tag">Mẻ Ủ Lạnh / Bước 02</span>
+
                     <h2>Hòa Hợp Dung Môi</h2>
+
                     <p class="step-description">Đặt phần bột cà phê vào bình chứa chuyên dụng. Hãy rót chậm rãi, nhẹ nhàng chính xác <strong id="nested-water-text" class="text-gold-highlight">500ml</strong> <span class="wiki-highlight" data-tooltip="Nước đã qua bộ lọc lọc tinh hoặc nước đóng chai, tránh dùng nước máy trực tiếp vì Clo và tạp chất kim loại sẽ phá hỏng hương vị mộc nguyên bản.">nước lọc tinh khiết</span> ở nhiệt độ phòng hoặc nước lạnh vào bình.</p>
+
                     <div class="wizard-footer border-top-none">
+
                         <button class="btn-text-only" onclick="navigateToCard(3)">🡠 Quay lại</button>
+
                         <button class="btn-premium" onclick="navigateToCard(5)">
+
                             <span>Tiếp tục: Khuấy Đều</span>
+
                             <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                         </button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 5: BƯỚC 3 — KHUẤY ĐỀU -->
+
         <section class="wizard-card" id="card-5">
+
             <div class="step-editorial-container">
+
                 <div class="step-media">
+
                     <div class="image-cover" style="background-image: url('https://images.unsplash.com/photo-1572286258217-40142c1c6a70?q=80&w=800&auto=format&fit=crop');"></div>
+
                 </div>
+
                 <div class="step-details">
+
                     <span class="step-indicator-tag">Mẻ Ủ Lạnh / Bước 03</span>
+
                     <h2>Kích Hoạt Tiếp Xúc</h2>
+
                     <p class="step-description">Sử dụng thanh khuấy hoặc thìa gỗ, khuấy đảo nhẹ nhàng vòng tròn khoảng 3 đến 5 lần. Hành động này giúp <span class="wiki-highlight" data-tooltip="Quá trình giải phóng các bong bóng khí CO2 bị kẹt bên trong cấu trúc hạt sau khi rang (Blooming), tạo không gian cho nước ngấm sâu vào lõi tế bào hạt.">phá vỡ các túi khí</span> bọc quanh bột, đảm bảo từng hạt bột ngập tràn trong làn nước mát.</p>
+
                     <div class="wizard-footer border-top-none">
+
                         <button class="btn-text-only" onclick="navigateToCard(4)">🡠 Quay lại</button>
+
                         <button class="btn-premium" onclick="navigateToCard(6)">
+
                             <span>Tiếp tục: Ngâm Ủ</span>
+
                             <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                         </button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 6: BƯỚC 4 — BẤM GIỜ & JOURNAL -->
+
         <section class="wizard-card" id="card-6">
+
             <div class="timer-center-layout">
+
                 <span class="step-indicator-tag">Mẻ Ủ Lạnh / Bước 04</span>
+
                 <h2>Quá Trình Ngâm Ủ Lạnh</h2>
+
                 <p class="center-lead">Đậy kín nắp bình và lưu trữ trong tủ lạnh. Kích hoạt đồng hồ đếm ngược tiêu chuẩn để theo dõi chu trình chuyển hóa hương vị hoàn mỹ.</p>
-                
+
+               
+
                 <div class="luxury-clock-face" id="luxury-clock">18:00:00</div>
 
+
+
                 <div class="clock-control-panel">
+
                     <button class="btn-luxury-action" id="timer-trigger-btn" onclick="handleTimerToggle()">▶ Chạy Thời Gian</button>
+
                     <button class="btn-luxury-action-neutral" onclick="handleTimerReset()">🔄 Đặt Lại</button>
+
                 </div>
+
+
 
                 <div class="luxury-journal-card">
+
                     <h3>📝 Nhật Ký Nghệ Nhân (Brew Journal)</h3>
+
                     <div class="journal-premium-input">
+
                         <input type="text" id="journal-field" placeholder="Ghi lại loại hạt, cảm nhận hoặc công thức riêng của bạn...">
+
                         <button class="btn-add-journal" onclick="commitJournalEntry()">Lưu Lại</button>
+
                     </div>
+
                     <div class="journal-render-area" id="journal-output-zone"></div>
+
                 </div>
+
+
 
                 <div class="wizard-footer">
+
                     <button class="btn-text-only" onclick="navigateToCard(5)">🡠 Quay lại</button>
+
                     <button class="btn-premium" onclick="navigateToCard(7)">
+
                         <span>Bước kế tiếp: Lọc Bã</span>
+
                         <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                     </button>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 7: BƯỚC 5 — LỌC BÃ -->
+
         <section class="wizard-card" id="card-7">
+
             <div class="step-editorial-container">
+
                 <div class="step-media">
+
                     <div class="image-cover" style="background-image: url('https://images.unsplash.com/photo-1543249032-6503c8b21e98?q=80&w=800&auto=format&fit=crop');"></div>
+
                 </div>
+
                 <div class="step-details">
+
                     <span class="step-indicator-tag">Mẻ Ủ Lạnh / Bước 05</span>
+
                     <h2>Phân Tách Tinh Hoa</h2>
+
                     <p class="step-description">Sau khi hoàn thành chu kỳ ngâm ủ, hãy lọc nước cốt cà phê qua phễu chứa giấy lọc chuyên dụng. Hãy để nước cốt nhỏ giọt tự nhiên, thu về phần chất lỏng màu <span class="wiki-highlight" data-tooltip="Màu sắc tiêu chuẩn chứng minh mẻ ủ đạt độ tinh khiết cao, không bị đục, khi ánh sáng chiếu qua sẽ óng ánh sắc cam đỏ ấm áp.">nâu hổ phách</span> trong suốt thuần khiết.</p>
+
                     <div class="wizard-footer border-top-none">
+
                         <button class="btn-text-only" onclick="navigateToCard(6)">🡠 Quay lại</button>
+
                         <button class="btn-premium" onclick="navigateToCard(8)">
+
                             <span>Xem Hương Vị</span>
+
                             <svg class="icon-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
                         </button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
+
+
 
         <!-- MÀN 8: FLAVOR GUIDE -->
+
         <section class="wizard-card" id="card-8">
+
             <div class="card-editorial-head">
+
                 <span class="step-counter">Taste Exploration</span>
+
                 <h2>Flavor Profile Guide</h2>
+
                 <p>Khám phá bản đồ hương vị tinh tế dựa trên các tầng cấp độ rang khác nhau.</p>
+
             </div>
+
+
 
             <div class="luxury-flavor-grid">
+
                 <div class="flavor-premium-item border-light">
+
                     <div class="flavor-top-line"></div>
+
                     <h4>Light Roast</h4>
+
                     <span class="flavor-meta-tag">Fruity & Jasmine</span>
+
                     <p>Giữ lại trọn vẹn đặc tính <span class="wiki-highlight" data-tooltip="Vị chua thanh tự nhiên đặc trưng của các loại trái cây hữu cơ có trong hạt Arabica chất lượng cao, hoàn toàn không phải vị chua lên men hư hỏng.">acid nguyên bản</span>. Mang sắc thái của các loại quả mọng nhiệt đới, hậu vị sáng trong, thanh mát tựa trà hoa.</p>
+
                 </div>
+
                 <div class="flavor-premium-item border-medium">
+
                     <div class="flavor-top-line"></div>
+
                     <h4>Medium Roast</h4>
+
                     <span class="flavor-meta-tag">Nutty & Milk Cacao</span>
+
                     <p>Đạt điểm cân bằng tuyệt hảo. Vị đắng nhẹ mượt xen lẫn hương hạt hạnh nhân rang, mật ong và hậu vị sô-cô-la sữa kéo dài đầy quyến rũ.</p>
+
                 </div>
+
                 <div class="flavor-premium-item border-dark">
+
                     <div class="flavor-top-line"></div>
+
                     <h4>Dark Roast</h4>
+
                     <span class="flavor-meta-tag">Bold & Dark Chocolate</span>
+
                     <p>Cá tính mạnh mẽ đậm chất truyền thống. Vị đắng dày mộc mạc, đậm đặc <span class="wiki-highlight" data-tooltip="Độ đậm đặc, cảm giác về sức nặng và độ mịn dày bám trên vòm miệng khi bạn ngụm một chút chất lỏng (như cảm giác phân biệt khi uống sữa nguyên kem và uống nước lọc).">thể chất (body)</span>, thoảng hương khói nhẹ và gỗ sồi quý tộc.</p>
+
                 </div>
+
             </div>
+
+
 
             <div class="wizard-footer">
+
                 <button class="btn-text-only" onclick="navigateToCard(7)">🡠 Quay lại</button>
+
                 <button class="btn-premium btn-success-luxury" onclick="triggerCompletionAll()">
+
                     <span>Hoàn Thành Mẻ Ủ 🎉</span>
+
                 </button>
+
             </div>
+
         </section>
 
+
+
         <!-- MÀN 9: THÀNH CÔNG VÀ KẾT THÚC -->
+
         <section class="wizard-card" id="card-9">
+
             <div class="luxury-success-viewport">
+
                 <div class="gold-pulse-circle">✔</div>
+
                 <h2>Extraction Completed</h2>
+
                 <p>Hành trình chiết xuất lạnh nghệ thuật đã hoàn tất xuất sắc. Bây giờ, hãy rót ly nước cốt trong lành ra ly đá pha lê, thêm một lát cam hoặc sữa tươi và tận hưởng thành quả của sự tinh tế.</p>
+
                 <button class="btn-premium" onclick="rebootTheWizard()">
+
                     <span>Pha Mẻ Ủ Mới 🔄</span>
+
                 </button>
+
             </div>
+
         </section>
+
+
 
     </main>
 
+
+
     <audio id="premium-bell" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script src="script.js"></script>
+
 </body>
-</html>
+
+</html> 

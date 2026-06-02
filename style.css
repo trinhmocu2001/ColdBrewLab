@@ -379,11 +379,7 @@ body {
     padding: 24px;
     border-radius: 20px;
     text-align: left;
-    transition: transform 0.3s ease;
-}
-
-.result-luxury-card:hover {
-    transform: translateY(-4px);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
 }
 
 .result-luxury-card.gold-tint {
@@ -693,18 +689,8 @@ body {
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.btn-premium:hover {
-    background: #332219;
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(26, 15, 10, 0.25);
-}
-
 .icon-arrow {
     transition: transform 0.3s ease;
-}
-
-.btn-premium:hover .icon-arrow {
-    transform: translateX(4px);
 }
 
 /* Nút chỉ chữ tối giản */
@@ -795,11 +781,6 @@ body {
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.wiki-highlight:hover {
-    color: #8D6E45;
-    background: linear-gradient(to top, rgba(197, 168, 128, 0.35) 40%, transparent 40%);
-}
-
 /* Thẻ giải nghĩa trượt lên */
 .wiki-highlight::after {
     content: attr(data-tooltip);
@@ -846,16 +827,74 @@ body {
                 transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Kích hoạt khi Hover */
-.wiki-highlight:hover::after,
-.wiki-highlight:hover::before {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
 
 /* ==========================================================================
-   13. RESPONSIVE MEDIA QUERIES (TỐI ƯU HÓA DI ĐỘNG & TABLET)
+   13. TÁCH BIỆT TRẢI NGHIỆM ĐA THIẾT BỊ (MÁY TÍNH HOVER VS ĐIỆN THOẠI TOUCH)
+   ========================================================================== */
+
+/* --- Dành Cho Thiết Bị Có Chuột (Desktop) --- */
+@media (hover: hover) {
+    /* Hiệu ứng di chuột của nút chính */
+    .btn-premium:hover {
+        background: #332219;
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(26, 15, 10, 0.25);
+    }
+    .btn-premium:hover .icon-arrow {
+        transform: translateX(4px);
+    }
+
+    /* Hiệu ứng di chuột của thẻ kết quả */
+    .result-luxury-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-champagne-gold);
+    }
+
+    /* Kích hoạt Tooltip khi Hover trên Máy tính */
+    .wiki-highlight:hover {
+        color: #8D6E45;
+        background: linear-gradient(to top, rgba(197, 168, 128, 0.35) 40%, transparent 40%);
+    }
+    .wiki-highlight:hover::after,
+    .wiki-highlight:hover::before {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* --- Dành Cho Thiết Bị Cảm Ứng (Mobile / Tablet) --- */
+@media (hover: none) {
+    /* Phản hồi xúc giác nhanh khi ngón tay chạm chạm vào nút */
+    .btn-premium:active {
+        background: #000000;
+        transform: scale(0.97);
+        transition: transform 0.1s ease;
+    }
+
+    /* Chạm nhẹ vào thẻ kết quả */
+    .result-luxury-card:active {
+        background-color: #FAF6F0;
+        transform: scale(0.99);
+    }
+
+    /* Giao diện Tooltip khi được chạm trên Mobile (Tránh lỗi dính hover) */
+    .wiki-highlight:active {
+        color: #8D6E45;
+        background: linear-gradient(to top, rgba(197, 168, 128, 0.45) 40%, transparent 40%);
+    }
+    .wiki-highlight:active::after,
+    .wiki-highlight:active::before {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+}
+
+
+/* ==========================================================================
+   14. RESPONSIVE MEDIA QUERIES (TỐI ƯU HÓA DI ĐỘNG & TABLET)
    ========================================================================== */
 @media (max-width: 960px) {
     .hero-grid, 
@@ -903,21 +942,4 @@ body {
         padding: 12px 16px;
         font-size: 0.78rem;
     }
-}
-/* Tách biệt hiệu ứng cho máy tính và điện thoại */
-
-/* Dành cho Máy tính (Có chuột) */
-@media (hover: hover) {
-  .your-highlight-class:hover {
-    background-color: #ffb86c; /* Màu nền highlight của bạn */
-    color: #fff;
-    transform: scale(1.05);
-  }
-}
-
-/* Dành cho Điện thoại (Chạm ngón tay vào) */
-.your-highlight-class:active {
-  background-color: #ffb86c;
-  color: #fff;
-  transition: background-color 0.1s ease;
 }
