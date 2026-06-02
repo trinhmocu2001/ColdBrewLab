@@ -904,3 +904,20 @@ body {
         font-size: 0.78rem;
     }
 }
+/* Tách biệt hiệu ứng cho máy tính và điện thoại */
+
+/* Dành cho Máy tính (Có chuột) */
+@media (hover: hover) {
+  .your-highlight-class:hover {
+    background-color: #ffb86c; /* Màu nền highlight của bạn */
+    color: #fff;
+    transform: scale(1.05);
+  }
+}
+
+/* Dành cho Điện thoại (Chạm ngón tay vào) */
+.your-highlight-class:active {
+  background-color: #ffb86c;
+  color: #fff;
+  transition: background-color 0.1s ease;
+}

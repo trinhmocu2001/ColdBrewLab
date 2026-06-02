@@ -194,3 +194,59 @@ window.addEventListener('load', () => {
     populateJournalUI();
     updateLuxuryProgressBar();
 });
+function henGioColdBrew(hoursToSteep) {
+    // 1. Lấy thời gian hiện tại
+    const now = new Date();
+    
+    // 2. Tính thời gian sau X tiếng nữa (khi Cold Brew chín)
+    const endTime = new Date(now.getTime() + hoursToSteep * 60 * 60 * 1000);
+    
+    // Định dạng thời gian theo chuẩn file Lịch (YYYYMMDDTHHMMSSZ)
+    const formatTime = (date) => {
+        return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+    };
+
+    const startTimeStr = formatTime(now);
+    const endTimeStr = formatTime(endTime);
+
+    // 3. Tạo nội dung file Lịch (.ics) chuẩn hệ điều hành
+    const icsContent = 
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cold Brew Guide//Remind Me//VN
+BEGIN:VEVENT
+UID:${Date.now()}@coldbrew.guide
+DTSTAMP:${startTimeStr}
+DTSTART:${endTimeStr}
+DTEND:${endTimeStr}
+SUMMARY:☕ Lọc bã cà phê Cold Brew thôi bạn ơi!
+DESCRIPTION:Cà phê của bạn đã ngâm đủ ${hoursToSteep} tiếng rồi đó. Hãy lọc bã và thưởng thức thôi!
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:Nhắc nhở lọc Cold Brew
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+    // 4. Tạo link tải xuống và kích hoạt trên điện thoại
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'nhac-nho-coldbrew.ics';
+    
+    // Kích hoạt app Lịch trên điện thoại mở ra
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// VÍ DỤ CÁCH DÙNG:
+// Khi người dùng bấm nút "Bắt đầu ngâm 16 tiếng"
+document.getElementById("start-timer-btn").addEventListener("click", () => {
+    // Chạy đếm ngược trên giao diện web như cũ
+    // ... code chạy timeline của bạn ...
+    
+    // Đồng thời gọi hàm này để kích hoạt hẹn giờ vào hệ thống điện thoại
+    henGioColdBrew(16); // Truyền số 16 tiếng vào đây
+});
